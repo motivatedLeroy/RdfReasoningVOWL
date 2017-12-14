@@ -20,9 +20,10 @@ import java.awt.*;
 public class VOWLSideBarComponent extends AbstractOWLViewComponent {
 
 	private static final long serialVersionUID = 2L;    // default? TODO
+	private int counter =0;
 
 	@Override
-	protected void initialiseOWLView() throws Exception {
+	public void initialiseOWLView() throws Exception {
 		
 		/* TableLayout as layout manager, VOWLSideBarComponent fills the size of the view component in both directions.
 		 * (remember the default size is given/limited from \view\VOWLTab.xml) 
@@ -42,7 +43,7 @@ public class VOWLSideBarComponent extends AbstractOWLViewComponent {
 		 * Within Protégé the user can open different ontologies, which can be shown within the same window or
 		 * within different windows. If the are shown within different windows, they are the same protege instance.
 		 * So an identifier is needed which is different for each protege instance but ontology independent.  */
-		String viewManagerID = getOWLWorkspace().getViewManager().toString();
+		String viewManagerID = String.valueOf(counter);
 
 		JPanel tableViewPanel = new JPanel();
 		tableViewPanel.setLayout(new BorderLayout());
@@ -79,6 +80,7 @@ public class VOWLSideBarComponent extends AbstractOWLViewComponent {
 		tableViewPanel.add(scrollPane);
 
 		add(tableViewPanel, "0,0");
+		counter++;
 	}
 
 	@Override

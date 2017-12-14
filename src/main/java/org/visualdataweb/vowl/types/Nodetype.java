@@ -20,7 +20,7 @@ public class Nodetype {
 	/**
 	 * be careful the order is important and each entry has to be unique!
 	 */
-	public final static String[] vowltype = {"None", "Class", "DeprecatedClass", "ExternalClass", "Datatype", "RDFSClass", "OWLThing", "GenericDatatype", "EquivalentClass"};
+	public final static String[] vowltype = {"None", "JMenuExistingNodeListener", "DeprecatedClass", "ExternalClass", "Datatype", "RDFSClass", "OWLThing", "GenericDatatype", "EquivalentClass"};
 
 	/**
 	 * just a shortcut for vowltype[6]

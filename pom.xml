@@ -60,12 +60,24 @@
             <groupId>tablelayout</groupId>
             <artifactId>tablelayout</artifactId>
             <version>pre-1.0.0</version>
+            <scope>provided</scope>
         </dependency>
+
+
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/edu.stanford.protege/org.semanticweb.owl.owlapi -->
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>org.semanticweb.owl.owlapi</artifactId>
+            <version>3.4.4</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -150,6 +162,41 @@
                     <pde>true</pde>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>GUI.Main</mainClass>
+                        </transformer>
+                    </transformers>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
     </build>
     

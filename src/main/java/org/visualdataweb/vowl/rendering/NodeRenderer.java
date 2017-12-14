@@ -6,6 +6,7 @@ package org.visualdataweb.vowl.rendering;
  * */
 
 import org.apache.log4j.Logger;
+import org.visualdataweb.vowl.protege.VOWLViewComponent;
 import prefuse.render.AbstractShapeRenderer;
 import prefuse.util.ColorLib;
 import prefuse.visual.VisualItem;
@@ -89,6 +90,13 @@ public class NodeRenderer extends AbstractShapeRenderer {
 			item.setStrokeColor(ColorLib.rgb(255, 0, 0)); // stroke color red
 			item.setStroke(new BasicStroke(4)); // thickness of the stroke
 			item.setHighlighted(true);
+		}
+
+		Object checkIsReasoningHighlighed = item.get(item.getColumnIndex(ColumnNames.IS_REASONING_HIGHLIGHTED));
+		if (checkIsReasoningHighlighed != null && (Boolean) checkIsReasoningHighlighed == true){
+			item.setFillColor(ColorLib.rgb(10,194,148));
+		}else{
+			item.setFillColor(ColorLib.rgb(170, 205, 255));
 		}
 		
 		/* check if node is OWLThing. If yes the margin has to be dashed */

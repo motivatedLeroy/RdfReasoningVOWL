@@ -45,4 +45,5 @@ public class ColumnNames {
 	public final static String IS_CLICKED = "IS_CLICKED";
 	public final static String RENDER_UTILITY_E2E_ANGEL = "RENDER_UTILITY_E2E_ANGEL";
 	public final static String EQUIVALENT_CLASSES = "EQUIVALENT_CLASSES";
+	public final static String IS_REASONING_HIGHLIGHTED = "IS_REASONING_HIGHLIGHTED";
 }

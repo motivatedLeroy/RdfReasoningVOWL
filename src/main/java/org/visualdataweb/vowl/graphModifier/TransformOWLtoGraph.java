@@ -10,6 +10,9 @@ import org.visualdataweb.vowl.storage.GraphStorage;
 import org.visualdataweb.vowl.types.EdgesType;
 import org.visualdataweb.vowl.types.OWLTypes;
 import org.visualdataweb.vowl.types.PropertyType;
+import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplString;
 
 import java.util.Set;
 import java.util.Collection;
@@ -60,7 +63,7 @@ public class TransformOWLtoGraph {
 
 	/**
 	 * Transforms subclasses defined as separate SubClassOf instead as
-	 * rdfs:subClassOf definition within a rdfs:Class definition.
+	 * rdfs:subClassOf definition within a rdfs:JMenuExistingNodeListener definition.
 	 *
 	 * @param OWLClassSet a set of classes
 	 * @param onto        the owl ontology
@@ -424,7 +427,7 @@ public class TransformOWLtoGraph {
 	}
 
 	/**
-	 * Extracts all needed informations from <owl:Class...>.
+	 * Extracts all needed informations from <owl:JMenuExistingNodeListener...>.
 	 *
 	 * @param OWLClassSet a set of OWLClasses
 	 * @param onto an owl ontology
@@ -441,7 +444,8 @@ public class TransformOWLtoGraph {
 			Boolean isDeprecated = false;
 			Collection<OWLAnnotation> owl_class_annotationSET = EntitySearcher.getAnnotations(owl_class,onto);
 			for (OWLAnnotation owl_class_annotation : owl_class_annotationSET) {
-				// extract data from owl:Class
+
+				// extract data from owl:JMenuExistingNodeListener
 				OWLAnnotationProperty owl_class_annotation_property = owl_class_annotation.getProperty();
 				OWLAnnotationValue owl_class_annotation_value = owl_class_annotation.getValue();
 				String checkFor = owl_class_annotation_property.toString();
@@ -464,13 +468,14 @@ public class TransformOWLtoGraph {
 				mod.addClassThingWithDetails(0, classID, className, classIRI, classComment, definedBy, owlVersion);
 			} else {
 				// check the namespace of the class if the class is imported or not
-				IRI ontoIRI = onto.getOntologyID().getOntologyIRI().get();
+				IRI ontoIRI = null;
+
 				if (ontoIRI == null && definedBy != null) {
 					ontoIRI = IRI.create(definedBy);
 				}
 				boolean isImported = tgu.hasDifferentNamespace(classIRI, ontoIRI);
 
-				// check if the extracted Class is a equivalent class
+				// check if the extracted JMenuExistingNodeListener is a equivalent class
 				if (onto.getEquivalentClassesAxioms(owl_class).isEmpty()) {
 					mod.addClass(classID, className, classIRI, classComment, definedBy, owlVersion, isDeprecated, isImported);
 				} else {
@@ -506,7 +511,7 @@ public class TransformOWLtoGraph {
 									Collection<OWLAnnotation> owl_class_annotationSET2 = EntitySearcher.getAnnotations(equiClassExpression.asOWLClass(),onto);
 									Boolean isDeprecated2 = false;
 									for (OWLAnnotation owl_class_annotation : owl_class_annotationSET2) {
-										// extract data from owl:Class
+										// extract data from owl:JMenuExistingNodeListener
 										OWLAnnotationProperty owl_class_annotation_property2 = owl_class_annotation.getProperty();
 										OWLAnnotationValue owl_class_annotation_value2 = owl_class_annotation.getValue();
 										String checkFor2 = owl_class_annotation_property2.toString();
@@ -547,7 +552,7 @@ public class TransformOWLtoGraph {
 
 										Collection<OWLAnnotation> owl_class_annotationSET2 = EntitySearcher.getAnnotations(owl_class_entity,onto);
 										for (OWLAnnotation owl_class_annotation : owl_class_annotationSET2) {
-											// extract data from owl:Class
+											// extract data from owl:JMenuExistingNodeListener
 											OWLAnnotationProperty owl_class_annotation_property2 = owl_class_annotation.getProperty();
 											OWLAnnotationValue owl_class_annotation_value2 = owl_class_annotation.getValue();
 											String checkFor2 = owl_class_annotation_property2.toString();

@@ -27,14 +27,18 @@ public class RunLayoutControl {
 	 * stops the layout process and decrease CPU load
 	 */
 	public void stopLayouting() {
-		PrefuseForceAbstractLayoutStorage.getForceDirectedLayout(viewManagerID).setEnabled(false);
+		for(int i = 0; i < Integer.valueOf(viewManagerID); i++){
+			PrefuseForceAbstractLayoutStorage.getForceDirectedLayout(String.valueOf(i)).setEnabled(false);
+		}
 	}
 
 	/**
 	 * enables the previously disabled layout process
 	 */
 	public void startLayouting() {
-		PrefuseForceAbstractLayoutStorage.getForceDirectedLayout(viewManagerID).setEnabled(true);
+        for(int i = 0; i < Integer.valueOf(viewManagerID); i++){
+            PrefuseForceAbstractLayoutStorage.getForceDirectedLayout(String.valueOf(i)).setEnabled(true);
+        }
 		/* previously implemented version of the same function {
 		// remove the reserve layout
 		removeReserveLayout();

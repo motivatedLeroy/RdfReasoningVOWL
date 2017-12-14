@@ -54,9 +54,9 @@ public class GraphDataModifier {
 	}
 
 	/**
-	 * Add a new Class with a generated id and a given name.
+	 * Add a new JMenuExistingNodeListener with a generated id and a given name.
 	 * Change of min_size for all classes possible if a new class is added
-	 * owl:Class
+	 * owl:JMenuExistingNodeListener
 	 *
 	 * @param name the name of the class
 	 */
@@ -65,10 +65,10 @@ public class GraphDataModifier {
 	}
 
 	/**
-	 * Add a new Class with an id and a name.
+	 * Add a new JMenuExistingNodeListener with an id and a name.
 	 * Change of min_size for all classes possible if a new class is added
 	 * The id should be unique, also it is not essential.
-	 * owl:Class
+	 * owl:JMenuExistingNodeListener
 	 *
 	 * @param id   should be unique
 	 * @param name the name of the class
@@ -78,7 +78,7 @@ public class GraphDataModifier {
 	}
 
 	/**
-	 * Add a new Class with details,
+	 * Add a new JMenuExistingNodeListener with details,
 	 * Change of min_size for all classes possible if a new class is added,
 	 * The id should be unique, also it is not essential.
 	 *
@@ -94,7 +94,7 @@ public class GraphDataModifier {
 	                     String owlVersion, boolean isDepreceted, boolean isExternal) {
 		int class_size = MIN_CLASS_SIZE;
 		String shortName = helperGetShortName(name, MAX_CLASS_NAME_LENGT);
-		// now add the new Class
+		// now add the new JMenuExistingNodeListener
 		Node n = GraphStorage.getGraph(viewManagerID).addNode();
 		n.set(ColumnNames.CLASS_INSTANCE_COUNT, 0);
 		n.set(ColumnNames.ID, id);
@@ -358,7 +358,7 @@ public class GraphDataModifier {
 	}
 
 	/**
-	 * Adds the special Class "Thing", owl:Thing.
+	 * Adds the special JMenuExistingNodeListener "Thing", owl:Thing.
 	 * <p/>
 	 * NOTE. Yes you could call this function with a name unlike "Thing" or a different URI as
 	 * {@link TransformOWLtoGraph#OWL_THING_CLASS_URI} because a user can define an "own" class with the namespace of
@@ -391,7 +391,7 @@ public class GraphDataModifier {
 		n.set(ColumnNames.TEXT_COLOR_RED, 0);
 		n.set(ColumnNames.TEXT_COLOR_GREEN, 0);
 		n.set(ColumnNames.TEXT_COLOR_BLUE, 0);
-		// changes the size of the OWLThing Class
+		// changes the size of the OWLThing JMenuExistingNodeListener
 		n.set(ColumnNames.NODE_HEIGHT, ((int) (MIN_CLASS_SIZE / 1.25)));
 		n.set(ColumnNames.NODE_WIDTH, ((int) (MIN_CLASS_SIZE / 1.25)));
 		n.set(ColumnNames.TEXT_SIZE, MIN_TEXT_SIZE);
@@ -399,7 +399,7 @@ public class GraphDataModifier {
 	}
 
 	/**
-	 * Adds the special Class "Thing", owl:Thing.
+	 * Adds the special JMenuExistingNodeListener "Thing", owl:Thing.
 	 */
 	public int addClassThing(int instances) {
 		int classId = GraphStorage.getNewID();
@@ -408,7 +408,7 @@ public class GraphDataModifier {
 	}
 
 	/**
-	 * Adds a deprecated Class, owl:DeprecatedClass.
+	 * Adds a deprecated JMenuExistingNodeListener, owl:DeprecatedClass.
 	 *
 	 * @param name String, the name of the deprecated class
 	 */

@@ -7,16 +7,24 @@ import prefuse.action.RepaintAction;
 import prefuse.action.assignment.ColorAction;
 import prefuse.activity.Activity;
 import prefuse.data.Graph;
+import prefuse.data.Node;
 import prefuse.data.Schema;
+import prefuse.data.Table;
+import prefuse.data.tuple.TupleSet;
 import prefuse.render.DefaultRendererFactory;
 import prefuse.render.LabelRenderer;
 import prefuse.util.ColorLib;
 import prefuse.util.PrefuseLib;
+import prefuse.visual.VisualGraph;
 import prefuse.visual.VisualItem;
+import prefuse.visual.VisualTable;
+import prefuse.visual.VisualTupleSet;
 import prefuse.visual.expression.InGroupPredicate;
 import org.visualdataweb.vowl.storage.PrefuseForceAbstractLayoutStorage;
 import org.visualdataweb.vowl.types.ColumnNames;
 import org.visualdataweb.vowl.types.FontUsed;
+
+import java.util.Iterator;
 
 public class RenderPrefuseGraph {
 
@@ -53,7 +61,10 @@ public class RenderPrefuseGraph {
 		layout.add(new TextLayoutDecorator("edgeDeco"));
 
 		final Visualization vis = new Visualization();
-		vis.add("GraphDataModifier", graph);
+		vis.addGraph("GraphDataModifier", graph);
+
+
+
 		vis.putAction("layout", layout);
 		NodeRenderer nodeRender = new NodeRenderer();
 

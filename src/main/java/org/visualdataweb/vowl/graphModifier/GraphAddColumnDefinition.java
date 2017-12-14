@@ -85,6 +85,9 @@ public class GraphAddColumnDefinition {
 		// add columns to store possible equivalent classes
 		graph.addColumn(ColumnNames.EQUIVALENT_CLASSES, ArrayList.class);
 
+		// add columns to store multi - highlight booleans
+		graph.addColumn(ColumnNames.IS_REASONING_HIGHLIGHTED, Boolean.class);
+
 		return graph;
 	}
 }

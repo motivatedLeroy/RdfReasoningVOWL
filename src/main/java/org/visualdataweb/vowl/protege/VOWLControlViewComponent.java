@@ -34,9 +34,10 @@ public class VOWLControlViewComponent extends AbstractOWLViewComponent {
 	private JSlider gravityLiteralsSlider;
 	private JSlider gravityClassesSlider;
 	private Button resetViewButton;
+	private int counter =0;
 
 	@Override
-	protected void initialiseOWLView() throws Exception {
+	public void initialiseOWLView() throws Exception {
 		TableLayout controlDisplayLayout = new TableLayout(
 				new double[][]{
 						{0.5, TableLayout.FILL},
@@ -50,7 +51,7 @@ public class VOWLControlViewComponent extends AbstractOWLViewComponent {
 		 * Within Protégé the user can open different ontologies, which can be shown within the same window or
 		 * within different windows. If the are shown within different windows, they are the same protege instance.
 		 * So an identifier is needed which is different for each protege instance but ontology independent.  */
-		String viewManagerID = getOWLWorkspace().getViewManager().toString();
+		String viewManagerID = String.valueOf(counter);
 
 		// label change gravity for classes
 		Label gravityLabel = new Label();
@@ -128,7 +129,7 @@ public class VOWLControlViewComponent extends AbstractOWLViewComponent {
 
 				if (renderToggleButtonText.equals(LanguageControlViewEN.renderToggleButtonOff)) {
 					// stop the visualization
-					RunLayoutControl rlc = new RunLayoutControl(getOWLWorkspace().getViewManager().toString());
+					RunLayoutControl rlc = new RunLayoutControl(String.valueOf(counter));
 					rlc.stopLayouting();
 					// disable the sliders, because the visualization has stopped
 					gravityClassesSlider.setEnabled(false);
@@ -139,7 +140,7 @@ public class VOWLControlViewComponent extends AbstractOWLViewComponent {
 
 				if (renderToggleButtonText.equals(LanguageControlViewEN.renderToggleButtonOn)) {
 					// activate the visualization
-					RunLayoutControl rlc = new RunLayoutControl(getOWLWorkspace().getViewManager().toString());
+					RunLayoutControl rlc = new RunLayoutControl(String.valueOf(counter));
 					rlc.startLayouting();
 					// enable the sliders, because the visualization is running again
 					gravityClassesSlider.setEnabled(true);
@@ -158,12 +159,16 @@ public class VOWLControlViewComponent extends AbstractOWLViewComponent {
 			// action listener to 'reset' the view (zoom back to default coordinates & zoom level)
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!DisplayStorage.getPrefuseDisplay(getOWLWorkspace().getViewManager().toString()).isTranformInProgress()) {
-					DisplayStorage.getPrefuseDisplay(getOWLWorkspace().getViewManager().toString()).animatePanAndZoomToAbs(
-							new Point(0, 0),
-							1.0 / DisplayStorage.getPrefuseDisplay(getOWLWorkspace().getViewManager().toString()).getScale(),
-							100);
-				}
+			    for(int i = 0; i < counter; i++){
+                    System.out.println(i);
+                    if (!DisplayStorage.getPrefuseDisplay(String.valueOf(i)).isTranformInProgress()) {
+                        DisplayStorage.getPrefuseDisplay(String.valueOf(i)).animatePanAndZoomToAbs(
+                                new Point(0, 0),
+                                1.0 / DisplayStorage.getPrefuseDisplay(String.valueOf(i)).getScale(),
+                                100);
+                    }
+                }
+
 			}
 		});
 
@@ -173,11 +178,13 @@ public class VOWLControlViewComponent extends AbstractOWLViewComponent {
 		@SuppressWarnings("unused") ControlViewStorage cvs = new ControlViewStorage(renderToggleButton, gravityClassesSlider, gravityLiteralsSlider);
 
 		// add a thread to enable the controls after an ontology has been loaded
-		Thread t = new enableGUIComponentsThread(renderToggleButton, gravityClassesSlider, gravityLiteralsSlider, resetViewButton, getOWLWorkspace().getViewManager().toString());
+		Thread t = new enableGUIComponentsThread(renderToggleButton, gravityClassesSlider, gravityLiteralsSlider, resetViewButton, String.valueOf(counter));
 		t.setPriority(Thread.MIN_PRIORITY);
 		t.start();
 		add(renderToggleButton, "1,2");
+		counter++;
 	}
+
 
 	@Override
 	protected void disposeOWLView() {
@@ -205,7 +212,7 @@ class enableGUIComponentsThread extends Thread {
 	 * @param j1 the gravityClassesSlider
 	 * @param j2 the gravityLiteralsSlider
 	 * @param reset the button to reset the graph view
-	 * @param id the id of the corresponding view manager (getOWLWorkspace().getViewManager().toString())
+	 * @param id the id of the corresponding view manager (String.valueOf(counter))
 	 * @throws InterruptedException
 	 */
 	enableGUIComponentsThread(Button button, JSlider j1, JSlider j2, Button reset, String id) throws InterruptedException {
